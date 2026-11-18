@@ -1,14 +1,17 @@
-import psycopg2
+import psycopg2 
+
 
 connection = psycopg2.connect(
     host="localhost",
     database="assignment_db",
     user="postgres",
-    password="oluwaseun4life!",
-    port="5432"
+    password="oluwaseun",
+    port=5432
 )
 
 # print("Database connected successfully")
+
+
 
 cursor = connection.cursor()
 
@@ -24,15 +27,24 @@ cursor.execute("""
 connection.commit()
 print("Student added successfully")
 
-cursor.execute("SELECT * FROM students")
+cursor.execute("SELECT * FROM students ORDER BY id ASC")
 
 students_list = cursor.fetchall()
 
 for student in students_list:
     print(f"{student[0]} | {student[1]} | {student[2]} | {student[3]}")
 
-cursor.execute("SELECT * FROM students")
-first_student = cursor.fetchone()
-print(first_student)
+
+# cursor.execute("""
+#     UPDATE students
+#     SET department = %s
+#     where id = %s
+# """, ("Software Engineering", 1))
+
+# connection.commit()
+# print("Student updated successfully")
+# cursor.execute("SELECT * FROM students")
+# first_student = cursor.fetchone()
+# print(first_student)
 
    
